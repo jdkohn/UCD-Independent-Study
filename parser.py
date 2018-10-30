@@ -13,26 +13,75 @@ class stateZero():
 		return
 
 	def add(self, total, minn=0, maxx=sys.maxint):
-		for a in range(minn, total):
-			for b in range(minn, total):
+		pairs = []
+
+		for a in range(minn, total + abs(minn) + 1):
+			for b in range(minn, total + abs(minn) + 1):
 				result = a + b
 				if result > total:
 					break
 				if result == total:
 					print('A: ', a, '. B: ', b)
+					pairs.append({'A': a, 'B': b})
 					break
 
-		return total - curr
+		return pairs
 
-	def subtract(self, curr, total, min=0, maxx=sys.maxint):
-		return
+	def subtract(self, total, minn=0, maxx=sys.maxint):
+		pairs = []
 
-	def multiply(self, curr, total):
-		return
+		for a in reversed(range(minn, maxx)):
+			for b in reversed(range(minn, maxx)):
+				result = a - b
+				if result > total:
+					break
+				if result == total:
+					print('A: ', a, '. B: ', b)
+					pairs.append({'A': a, 'B': b})
+					break
 
-	def divide(self, curr, total):
-		return		
+		return pairs
 
+	def multiply(self, total, minn=0, maxx=sys.maxint):
+		pairs = []
+
+		for a in range(minn, min(maxx, total + 1)):
+			for b in range(minn, min(maxx, total + 1)):
+				result = a * b
+				if result > total:
+					break
+				if result == total:
+					print('A: ', a, '. B: ', b)
+					pairs.append({'A': a, 'B': b})
+					break
+
+		return pairs
+
+	def divide(self, total, minn=0, maxx=sys.maxint):
+		pairs = []
+
+		for a in reversed(range(minn, maxx + 1)):
+			for b in reversed(range(minn, maxx + 1)):
+				
+				# check so no div/0
+				if b == 0:
+					continue
+
+				result = a / b
+				if result > total:
+					break
+
+				if result == total:
+					print('A: ', a, '. B: ', b)
+					pairs.append({'A': a, 'B': b})
+					break
+
+		return pairs		
+
+
+z = stateZero()
+
+z.divide(4, 0, 8)
 
 # state 1 and 2 functions
 
